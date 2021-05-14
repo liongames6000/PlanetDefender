@@ -1,6 +1,6 @@
 package Schule.Planetderfender.Objects;
 
-public class Asteroid {
+public abstract class Asteroid {
     public Asteroid(){
 
     }
