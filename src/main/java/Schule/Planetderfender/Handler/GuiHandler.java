@@ -17,28 +17,17 @@ public class GuiHandler
     private Color customColor;
 
     /**
-     * Erzeugt ein Zeichenfenster mit wei�em Hintergrund.
+     * Erzeugt ein Zeichenfenster.
      * @param title  Fensterueberschirft
      * @param width  Breite des Fensters
      * @param height  Hoehe des Fensters
-     */
-    public GuiHandler(String title, int width, int height)
-    {
-        this(title, width, height, Color.white);
-    }
-
-    /**
-     * Erzeugt ein Zeichenfenster.
-     * @param titel  Fensterueberschirft
-     * @param width  Breite des Fensters
-     * @param heigth  Hoehe des Fensters
      * @param backgroundColor  Hintergrundfarbe des Zeichenfensters
      */
-    private GuiHandler(String titel, int width, int heigth, Color backgroundColor)
+    private GuiHandler(String title, int width, int height, Color backgroundColor)
     {
         frame = new JFrame();
         canvas = new CanvasPane();
-        canvas.setPreferredSize(new Dimension(width, heigth));
+        canvas.setPreferredSize(new Dimension(width, height));
         frame.getContentPane().add(canvas,BorderLayout.CENTER);
         JPanel p1=new JPanel();
         p1.setLayout(new BorderLayout());
@@ -49,15 +38,15 @@ public class GuiHandler
         p1.add(stearingEast,BorderLayout.NORTH);
         frame.getContentPane().add(p1,BorderLayout.EAST);
         frame.getContentPane().add(stearingSouth,BorderLayout.SOUTH);
-        frame.setTitle(titel);
+        frame.setTitle(title);
         frame.pack();
-        show();
+        show(backgroundColor);
     }
 
     public static GuiHandler getInstance()
     {
-        if (singleton==null){singleton=new GuiHandler("PlanetDefender",1920,1080);}
-        singleton.show();
+        if (singleton==null){singleton=new GuiHandler("PlanetDefender",1920,1060,Color.white);}
+        singleton.show(Color.white);
         return singleton;
     }
 
@@ -65,11 +54,9 @@ public class GuiHandler
      * Macht das Zeichenfenster sichtbar bzw. setzt es in den Vordergrund,
      * falls es bereits sichtbar ist.
      */
-    public void show()
+    public void show(Color backgroundColor)
     {
         if(graphic == null) {
-            // nur beim ersten Aufruf wird der Hintergrund mit der Hintergrundfarbe
-            // gefuellt
             Dimension size = canvas.getSize();
             canvasImage = canvas.createImage(size.width, size.height);
             graphic = (Graphics2D)canvasImage.getGraphics();
@@ -80,29 +67,6 @@ public class GuiHandler
         frame.setVisible(true);
     }
 
-    /**
-     * Gibt Information �ber die Sichtbarkeit.
-     * @return  true falls das Fenster sichtbar ist.
-     */
-    public boolean isVisible()
-    {
-        return frame.isVisible();
-    }
-
-    /**
-     * Zeichnet einen Elipsenbogen (Siehe Graphics.drawArc)
-     * @param x x-Koordinate des Elipsenmittelpunkts
-     * @param y y-Koordinate des Elipsenmittelpunkts
-     * @param XAxsis Halbachse der Elipse in x-Richtung
-     * @param YAxsis Halbachse der Elipse in y-Richtung
-     * @param startAngle Polarwinkel, an dem der Bogen anf�ngt
-     * @param angle Polarwinkel, welchen der Bogen durchl�uft
-     */
-    public void drawArc(int x, int y, int XAxsis, int YAxsis, int startAngle, int angle)
-    {
-        graphic.drawArc(x-XAxsis,y-YAxsis,2*XAxsis,2*YAxsis,startAngle,angle);
-        canvas.repaint();
-    }
 
     /**
      * Zeichnet einen Kreis (Siehe Graphics.drawOval)
@@ -113,7 +77,6 @@ public class GuiHandler
     public void drawCircle(int x, int y, int radius)
     {
         graphic.drawOval(x-radius,y-radius,2*radius,2*radius);
-        canvas.repaint();
     }
 
     /**
@@ -129,23 +92,6 @@ public class GuiHandler
         Color original=graphic.getColor();
         graphic.setColor(colorToColor(color));
         graphic.fillOval(x-radius,y-radius,2*radius,2*radius);
-        canvas.repaint();
-        graphic.setColor(original);
-    }
-
-    /**
-     * F�llt das Innere eines Kreises mit der angegebenen Farbe.
-     * @param x x-Koordinate des Mittelpunkts
-     * @param y y-Koordinate des Mittelpunkts
-     * @param radius Kreisradius
-     * @param  colornr  F�llfarbnummer f�r den Kreis (0 bis 8)
-     */
-    public void fillCircle(int x, int y, int radius, int colornr)
-    {
-        Color original=graphic.getColor();
-        graphic.setColor(colorToColor(colornr));
-        graphic.fillOval(x-radius,y-radius,2*radius,2*radius);
-        canvas.repaint();
         graphic.setColor(original);
     }
 
@@ -169,7 +115,6 @@ public class GuiHandler
     public void drawRectangle(int xPos, int yPos, int width, int heigth)
     {
         graphic.drawRect(xPos, yPos, width, heigth);
-        canvas.repaint();
         // fill(new Rectangle(xPos, yPos, width, heigth));
     }
 
@@ -185,22 +130,6 @@ public class GuiHandler
         Color original=graphic.getColor();
         graphic.setColor(colorToColor(farbe));
         graphic.fillRect(xPos, yPos, width, heigth);
-        canvas.repaint();
-        graphic.setColor(original);
-    }
-
-    /**
-     * F�llt das Innere des Rechtecks mit der angegebenen Farbe.
-     * @param xPos,yPos Koordinaten der linken oberen Ecke
-     * @param width, heigth Breite und H�he des Rechtecks
-     * @param  farbnr  F�llfarbnummer f�r das Rechteck (0 bis 8)
-     */
-    public void fillRectangle(int xPos, int yPos, int width, int heigth, int farbnr)
-    {
-        Color original=graphic.getColor();
-        graphic.setColor(colorToColor(farbnr));
-        graphic.fillRect(xPos, yPos, width, heigth);
-        canvas.repaint();
         graphic.setColor(original);
     }
 
@@ -232,7 +161,6 @@ public class GuiHandler
     public void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3)
     {
         graphic.drawPolygon(getTriangle(x1, y1, x2, y2, x3, y3));
-        canvas.repaint();
     }
 
     /**
@@ -248,23 +176,6 @@ public class GuiHandler
         Color original=graphic.getColor();
         graphic.setColor(colorToColor(farbe));
         graphic.fillPolygon(getTriangle(x1, y1, x2, y2, x3, y3));
-        canvas.repaint();
-        graphic.setColor(original);
-    }
-
-    /**
-     * F�llt das Innere eines Dreiecks mit der angegebenen Farbe.
-     * @param x1,y1 Koordinaten des ersten Eckpunkts
-     * @param x2,y2 Koordinaten des zweiten Eckpunkts
-     * @param x3,y3 Koordinaten des dritten Eckpunkts
-     * @param  farbnr  F�llfarbnummer f�r das Dreieck (0 bis 8)
-     */
-    public void fillTriangle(int x1, int y1, int x2, int y2, int x3, int y3, int farbnr)
-    {
-        Color original=graphic.getColor();
-        graphic.setColor(colorToColor(farbnr));
-        graphic.fillPolygon(getTriangle(x1, y1, x2, y2, x3, y3));
-        canvas.repaint();
         graphic.setColor(original);
     }
 
@@ -290,7 +201,6 @@ public class GuiHandler
     public boolean drawImage(Image image, int x, int y)
     {
         boolean result = graphic.drawImage(image, x, y, null);
-        canvas.repaint();
         return result;
     }
 
@@ -303,7 +213,6 @@ public class GuiHandler
     public void drawText(String text, int x, int y)
     {
         graphic.drawString(text, x, y);
-        canvas.repaint();
     }
 
     /**
@@ -318,7 +227,6 @@ public class GuiHandler
         graphic.setColor(backgroundColor);
         graphic.drawString(text, x, y);
         graphic.setColor(original);
-        canvas.repaint();
     }
 
     /**
@@ -331,7 +239,6 @@ public class GuiHandler
     public void drawLine(int x1, int y1, int x2, int y2)
     {
         graphic.drawLine(x1, y1, x2, y2);
-        canvas.repaint();
     }
 
     /**
@@ -341,7 +248,6 @@ public class GuiHandler
     public void draw(Shape shape)
     {
         graphic.draw(shape);
-        canvas.repaint();
     }
 
     /**
@@ -355,7 +261,6 @@ public class GuiHandler
         Color original=graphic.getColor();
         graphic.setColor(colorToColor(farbe));
         graphic.fill(shape);
-        canvas.repaint();
         graphic.setColor(original);
     }
 
@@ -369,7 +274,6 @@ public class GuiHandler
         Color original=graphic.getColor();
         graphic.setColor(colorToColor(colornr));
         graphic.fill(shape);
-        canvas.repaint();
         graphic.setColor(original);
     }
 
@@ -384,7 +288,6 @@ public class GuiHandler
         graphic.fill(shape);
         graphic.draw(shape);// erase by filling background color
         graphic.setColor(original);
-        canvas.repaint();
     }
 
     /**
@@ -397,7 +300,6 @@ public class GuiHandler
         graphic.setColor(backgroundColor);
         graphic.fill(shape);              // erase by filling background color
         graphic.setColor(original);
-        canvas.repaint();
     }
 
     /**
@@ -410,7 +312,6 @@ public class GuiHandler
         Dimension size = canvas.getSize();
         graphic.fill(new Rectangle(0, 0, size.width, size.height));
         graphic.setColor(original);
-        canvas.repaint();
     }
 
     /**
@@ -423,7 +324,6 @@ public class GuiHandler
         graphic.setColor(backgroundColor);
         graphic.draw(shape);  // L�schen durch �bermalen mit Hintergrundfarbe
         graphic.setColor(original);
-        canvas.repaint();
     }
 
 
@@ -614,6 +514,12 @@ public class GuiHandler
     public void setTitle(String titleNew)
     {
         frame.setTitle(titleNew);
+    }
+
+    public boolean redraw(){
+        canvas.repaint();
+        frame.repaint();
+        return true;
     }
 
     /************************************************************************
