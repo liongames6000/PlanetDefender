@@ -1,17 +1,32 @@
-package Schule.Planetderfender.Handler;
+/*package Schule.Planetderfender.Handler;
 
-import java.util.Scanner;
+import Schule.Planetderfender.Objects.Canon;
 
-public class KeyHandler {
-    public KeyHandler(){
-        Scanner keyInput = new Scanner(System.in);
+import java.awt.event.*;
+public class KeyHandler implements KeyListener {
 
-        String response = keyInput.next().toUpperCase();
+    @Override
+    public void keyTyped(KeyEvent e) {
 
-        switch(response){
-            case("A"): ; break;
-            case("D"): ; break;
-            default: ;
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        switch (e.getKeyChar()){
+            case 'a' : Canon.move(2); break;
+            case 'd' : Canon.move(-2); break;
+        }
+        try {
+            Thread.sleep(10);
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 }
+*/
