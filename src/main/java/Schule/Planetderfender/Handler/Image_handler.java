@@ -10,32 +10,37 @@ public class ImageHandler {
    
     String workingDirectory = System.getProperty("user.dir");
     String absoluteFilePath;
+		Image image;
+		//BufferedImage bimg,tempBimg;
     //enter filename/path to create SoundHandler Object
-    public SoundHandler(String file) throws IOException{
+    public SoundHandler() throws IOException{
 
         //searches for path of file
-        String workingDirectory = System.getProperty("user.dir");
-        absoluteFilePath = workingDirectory + File.separator + "src" + File.separator + "main"+ File.separator + "resources"+ File.separator + "images" + File.separator + file;
-        File image = new File(absoluteFilePath); //filename conversion to <<File>> class object
-         int height = image.getHeight();
+        image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        int height = image.getHeight();
         int width = image.getWidth();
 
 
     }
-    //loads audio clip
+    //loads Image
     public void load(String file)throws IOException{
         String workingDirectory = System.getProperty("user.dir");
         absoluteFilePath = workingDirectory + File.separator + "src" + File.separator + "main"+ File.separator + "resources"+ File.separator + "images" + File.separator + file;
-        clip.open(audioStream);
+        File imageFile = new File(absoluteFilePath);
+				BufferedImage tempBimg = ImageIO.read(imageFile);
+				int width  = tempBimg.getWidth();
+				int height = tempBimg.getHeight();
+				bimg = BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+				Image image = bimg
         System.out.println("image loaded to 'clipboard'");
     }
-    //unloads audio clip
-    public void unload()throws IOException{
+
+    //public void unload()throws IOException{
         clip.close();
         System.out.println("cleared clipboard of Image_Handler");
     }
     //starts the clip
-    public void get_image()throws IOException{
-        
+    public Image get_image()throws IOException{
+        return image
     }
 }
