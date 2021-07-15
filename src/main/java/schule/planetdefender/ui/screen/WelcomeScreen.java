@@ -67,11 +67,12 @@ public class WelcomeScreen extends AbstractNavigationScreen {
     }
 
     private void doProceed() {
-        if (playerDAO.getPlayers().isEmpty()) {
+        /*if (playerDAO.getPlayers().isEmpty()) {
             gameController.switchState(GameController.State.PLAYER_CREATE);
         } else {
             gameController.switchState(GameController.State.MAIN);
-        }
+        }*/
+        gameController.switchState(GameController.State.MAIN);
     }
 
 }

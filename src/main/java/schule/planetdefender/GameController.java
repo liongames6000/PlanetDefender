@@ -8,7 +8,9 @@ import schule.planetdefender.handler.OptionsHandler;
 import schule.planetdefender.handler.TextHandler;
 import schule.planetdefender.ui.screen.AbstractNavigationScreen;
 import schule.planetdefender.ui.screen.WelcomeScreen;
+import schule.planetdefender.ui.screen.main.ExitScreen;
 import schule.planetdefender.ui.screen.main.MainScreen;
+import schule.planetdefender.ui.screen.main.OptionsScreen;
 import schule.planetdefender.util.Util;
 
 import javax.swing.*;
@@ -75,6 +77,8 @@ public class GameController extends Canvas implements Runnable {
      */
     private final WelcomeScreen welcomeScreen;
     private final MainScreen mainScreen;
+    private final OptionsScreen optionsScreen;
+    private final ExitScreen exitScreen;
 
     private Color mainMenuScreenColor;
 
@@ -171,25 +175,25 @@ public class GameController extends Canvas implements Runnable {
         /* Create menu objects */
         welcomeScreen = new WelcomeScreen(AbstractNavigationScreen.NavStyle.VERTICAL, 2, this);
         mainScreen = new MainScreen(AbstractNavigationScreen.NavStyle.VERTICAL, 6, this);
-        /*playScreen = new PlayScreen(this);
-        selectLevelScreen = new SelectLevelScreen(this);
-        preLevelScreen = new PreLevelScreen(this);
-        postLevelScreen = new PostLevelScreen(this);
-        pauseScreen = new PauseScreen(this);
-        highScoresScreen = new HighScoresScreen(this);
-        controlsScreen = new ControlsScreen(this);
+        //playScreen = new PlayScreen(this);
+        //selectLevelScreen = new SelectLevelScreen(this);
+        //preLevelScreen = new PreLevelScreen(this);
+        //postLevelScreen = new PostLevelScreen(this);
+        //pauseScreen = new PauseScreen(this);
+        //highScoresScreen = new HighScoresScreen(this);
+        //controlsScreen = new ControlsScreen(this);
         optionsScreen = new OptionsScreen(AbstractNavigationScreen.NavStyle.VERTICAL, 4, this);
-        playerOptionsScreen = new PlayerOptionsScreen(AbstractNavigationScreen.NavStyle.VERTICAL, 3, this);
-        playerSelectScreen = new PlayerSelectScreen(AbstractNavigationScreen.NavStyle.VERTICAL_HORIZONTAL,
-                playerDAO.getPlayers().size(), 5, this);
-        playerCreateScreen = new PlayerCreateScreen(this);
-        playerDeleteScreen = new PlayerDeleteScreen(AbstractNavigationScreen.NavStyle.VERTICAL_HORIZONTAL,
-                playerDAO.getPlayers().size(), 5, this);
-        gameOptions = new GameOptions(AbstractNavigationScreen.NavStyle.VERTICAL, 2, this);
-        graphicsOptions = new GraphicsOptions(AbstractNavigationScreen.NavStyle.VERTICAL, 2, this);
-        configOptionsScreen = new ConfigOptionsScreen(this);
-        aboutScreen = new AboutScreen(this);
-        exitScreen = new ExitScreen(this);*/
+        //playerOptionsScreen = new PlayerOptionsScreen(AbstractNavigationScreen.NavStyle.VERTICAL, 3, this);
+        //playerSelectScreen = new PlayerSelectScreen(AbstractNavigationScreen.NavStyle.VERTICAL_HORIZONTAL,
+        //        playerDAO.getPlayers().size(), 5, this);
+        //playerCreateScreen = new PlayerCreateScreen(this);
+        //playerDeleteScreen = new PlayerDeleteScreen(AbstractNavigationScreen.NavStyle.VERTICAL_HORIZONTAL,
+        //        playerDAO.getPlayers().size(), 5, this);
+        //gameOptions = new GameOptions(AbstractNavigationScreen.NavStyle.VERTICAL, 2, this);
+        //graphicsOptions = new GraphicsOptions(AbstractNavigationScreen.NavStyle.VERTICAL, 2, this);
+        //configOptionsScreen = new ConfigOptionsScreen(this);
+        //aboutScreen = new AboutScreen(this);
+        exitScreen = new ExitScreen(this);
         mainMenuScreenColor = util.generatePastelColor(0.9F, 9000F);
 
         /* Add input handlers */
@@ -268,57 +272,57 @@ public class GameController extends Canvas implements Runnable {
                 switchScreenColor();
                 mainScreen.update();
                 break;
-            /*case SELECT_LEVEL:
-                selectLevelScreen.update();
+            case SELECT_LEVEL:
+                //selectLevelScreen.update();
                 break;
             case PRE_LEVEL:
-                preLevelScreen.update();
+                //preLevelScreen.update();
                 break;
             case POST_LEVEL:
-                postLevelScreen.update();
+                //postLevelScreen.update();
                 break;
             case PAUSE:
-                pauseScreen.update();
+                //pauseScreen.update();
                 break;
             case PLAY:
-                playScreen.update();
+                //playScreen.update();
                 break;
             case SCORES:
-                highScoresScreen.update();
+                //highScoresScreen.update();
                 break;
             case CONTROLS:
-                controlsScreen.update();
+                //controlsScreen.update();
                 break;
             case OPTIONS:
                 optionsScreen.update();
                 break;
             case PLAYER_OPTIONS:
-                playerOptionsScreen.update();
+                //playerOptionsScreen.update();
                 break;
             case PLAYER_SELECT:
-                playerSelectScreen.update();
+                //playerSelectScreen.update();
                 break;
             case PLAYER_CREATE:
-                playerCreateScreen.update();
+                //playerCreateScreen.update();
                 break;
             case PLAYER_DELETE:
-                playerDeleteScreen.update();
+                //playerDeleteScreen.update();
                 break;
             case GAME_OPTIONS:
-                gameOptions.update();
+                //gameOptions.update();
                 break;
             case GRAPHICS_OPTIONS:
-                graphicsOptions.update();
+                //graphicsOptions.update();
                 break;
             case CONFIG_OPTIONS:
-                configOptionsScreen.update();
+                //configOptionsScreen.update();
                 break;
             case ABOUT:
-                aboutScreen.update();
+                //aboutScreen.update();
                 break;
             case EXIT:
                 exitScreen.update();
-                break;*/
+                break;
             default:
                 break;
         }
@@ -414,57 +418,57 @@ public class GameController extends Canvas implements Runnable {
             case MAIN:
                 mainScreen.render(g);
                 break;
-            /*case SELECT_LEVEL:
-                selectLevelScreen.render(g);
+            case SELECT_LEVEL:
+                //selectLevelScreen.render(g);
                 break;
             case PRE_LEVEL:
-                preLevelScreen.render(g);
+                //preLevelScreen.render(g);
                 break;
             case POST_LEVEL:
-                postLevelScreen.render(g);
+                //postLevelScreen.render(g);
                 break;
             case PAUSE:
-                pauseScreen.render(g);
+                //pauseScreen.render(g);
                 break;
             case PLAY:
-                playScreen.render(g);
+                //playScreen.render(g);
                 break;
             case SCORES:
-                highScoresScreen.render(g);
+                //highScoresScreen.render(g);
                 break;
             case CONTROLS:
-                controlsScreen.render(g);
+                //controlsScreen.render(g);
                 break;
             case OPTIONS:
                 optionsScreen.render(g);
                 break;
             case PLAYER_OPTIONS:
-                playerOptionsScreen.render(g);
+                //playerOptionsScreen.render(g);
                 break;
             case PLAYER_SELECT:
-                playerSelectScreen.render(g);
+                //playerSelectScreen.render(g);
                 break;
             case PLAYER_CREATE:
-                playerCreateScreen.render(g);
+                //playerCreateScreen.render(g);
                 break;
             case PLAYER_DELETE:
-                playerDeleteScreen.render(g);
+                //playerDeleteScreen.render(g);
                 break;
             case GAME_OPTIONS:
-                gameOptions.render(g);
+                //gameOptions.render(g);
                 break;
             case GRAPHICS_OPTIONS:
-                graphicsOptions.render(g);
+                //graphicsOptions.render(g);
                 break;
             case CONFIG_OPTIONS:
-                configOptionsScreen.render(g);
+                //configOptionsScreen.render(g);
                 break;
             case ABOUT:
-                aboutScreen.render(g);
+                //aboutScreen.render(g);
                 break;
             case EXIT:
                 exitScreen.render(g);
-                break;*/
+                break;
             default:
                 break;
         }

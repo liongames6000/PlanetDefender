@@ -37,8 +37,8 @@ public class InputHandler implements KeyListener {
         isLeftPressed = keys[KeyEvent.VK_LEFT] || keys[KeyEvent.VK_A];
         isRightPressed = keys[KeyEvent.VK_RIGHT] || keys[KeyEvent.VK_D];
 
-        isOKPressed = keys[KeyEvent.VK_Z];
-        isCancelPressed = keys[KeyEvent.VK_X];
+        isOKPressed = keys[KeyEvent.VK_ENTER];
+        isCancelPressed = keys[KeyEvent.VK_ESCAPE];
         isAuxPressed = keys[KeyEvent.VK_SPACE];
         isPausePressed = keys[KeyEvent.VK_P];
     }
